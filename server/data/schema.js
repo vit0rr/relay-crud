@@ -2,8 +2,8 @@ import {
   GraphQLID,
   GraphQLNonNull,
   GraphQLObjectType,
-  GraphQLString,
   GraphQLSchema,
+  GraphQLString,
 } from "graphql";
 
 import {
@@ -71,22 +71,22 @@ const userType = new GraphQLObjectType({
   name: "User",
   description: "Users added by default",
   fields: () => ({
-    id: globalIdField("user"),
+    id: globalIdField("User"),
     name: {
       type: GraphQLString,
       description: "Name of user",
     },
     address: {
       type: GraphQLString,
-      description: "Address of user",
+      description: "Address of the user",
     },
     email: {
       type: GraphQLString,
-      description: "Email of user",
+      description: "Email of the user",
     },
     age: {
       type: GraphQLString,
-      description: "Age of user",
+      description: "Age the user",
     },
   }),
   interfaces: [nodeInterface],
@@ -113,7 +113,7 @@ const addUserMutation = mutationWithClientMutationId({
       },
     },
     viewer: {
-      type: userType,
+      type: listType,
       resolve: () => getList(1),
     },
   },
@@ -150,23 +150,20 @@ const deleteUserMutation = mutationWithClientMutationId({
   name: "DeleteUser",
   inputFields: {
     id: { type: new GraphQLNonNull(GraphQLID) },
-    email: { type: new GraphQLNonNull(GraphQlString) },
+    email: { type: new GraphQLNonNull(GraphQLString) },
   },
 
   outputFields: {
     DeletedUser: {
       type: GraphQLID,
-      resolve: (id) => id,
+      resolve: ({ id }) => id,
     },
     viewer: {
       type: listType,
       resolve: () => getList(1),
     },
-    viewer: {
-      type: userType,
-      resolve: () => getUser(1),
-    },
   },
+
   mutateAndGetPayload: ({ id, email }) => deleteUser(id, email),
 });
 
