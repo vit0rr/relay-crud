@@ -12,9 +12,7 @@ export default (
     {/* <IndexRoute component={UserContainer} queries={ViewerQuery} /> */}
     <IndexRoute queries={ViewerQuery} />
     <Route path="signup" component={SignupComponent} />
-    <Route path="login">
-      <LoginComponent></LoginComponent>
-    </Route>
+    <Route path="login" component={LoginComponent} />
     <Redirect from="*" to="/" />
   </Route>
 );

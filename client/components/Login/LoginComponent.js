@@ -3,10 +3,11 @@ import { Grid, Cell, Textfield, Button, Checkbox } from "react-mdl";
 import Page from "../Page/PageComponent";
 import ReactDOM from 'react-dom'
 
-export default function Login() {
+export default function LoginComponent() {
   ReactDOM.render (
+    console.log("teste"),
     <Page heading="Login">
-      SEI LA IRMAO
+      
       <div style={{ width: "70%", margin: "auto" }}>
         <Grid>
           <form style={{ margin: "auto" }}>
