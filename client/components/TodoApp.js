@@ -4,8 +4,8 @@ import TodoList from './TodoList.js';
 import * as React from 'react';
 import {graphql, usePreloadedQuery} from 'react-relay'; 
 
-export default function TodoApp({queries}) {
-  const {user} = usePreloadedQuery(
+export default (function TodoApp({queries}) {
+  const user = usePreloadedQuery(
     graphql`
       query TodoAppQuery($userId: String) @preloadable {
         user(id: $userId) @required(action: THROW) {
@@ -13,9 +13,9 @@ export default function TodoApp({queries}) {
         }
       }
     `,
-    queries.TodoAppQueryRef,
+    queries.TodoAppQueryRef
   );
-
+      
   return (
     <div>
       <section className="todoapp">
@@ -36,4 +36,4 @@ export default function TodoApp({queries}) {
       </footer>
     </div>
   );
-};
+});

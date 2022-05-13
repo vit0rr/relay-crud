@@ -16,7 +16,7 @@ import {schema} from './server/schema/index.js';
 // const WebpackDevServer = require('webpack-dev-server');
 // const {schema} = require('./server/schema');
 
-const APP_PORT = 3000;
+const APP_PORT = 3001;
 const QUERY_MAP_FILE = path.resolve(
   __dirname,
   '__generated__',

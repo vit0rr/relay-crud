@@ -5,7 +5,7 @@ const TodoAppEntryPoint = {
   getPreloadProps({userId}) {
     return {
       queries: {
-        todoAppQueryRef: {
+        TodoAppQueryRef: {
           parameters: {
             kind: 'PreloadableConcreteRequest',
             params: TodoAppQuery.params,
