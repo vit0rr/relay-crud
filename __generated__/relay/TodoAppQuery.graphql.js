@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bf86dc70c577b4335bdedfc3f238ad37>>
+ * @generated SignedSource<<5a142ec9cacb80d92594265fee76431d>>
  * @relayHash 8a75762b2e92a08aeb1007fc11f71298
  * @flow
  * @lightSyntaxTransform
@@ -19,7 +19,7 @@ export type TodoAppQuery$variables = {|
   userId?: ?string,
 |};
 export type TodoAppQuery$data = {|
-  +user: {|
+  +user: ?{|
     +$fragmentSpreads: TodoList_user$fragmentType,
   |},
 |};
@@ -66,25 +66,20 @@ return {
     "name": "TodoAppQuery",
     "selections": [
       {
-        "kind": "RequiredField",
-        "field": {
-          "alias": null,
-          "args": (v1/*: any*/),
-          "concreteType": "User",
-          "kind": "LinkedField",
-          "name": "user",
-          "plural": false,
-          "selections": [
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "TodoList_user"
-            }
-          ],
-          "storageKey": null
-        },
-        "action": "THROW",
-        "path": "user"
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "user",
+        "plural": false,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "TodoList_user"
+          }
+        ],
+        "storageKey": null
       }
     ],
     "type": "Query",
@@ -249,7 +244,7 @@ return {
 };
 })();
 
-(node/*: any*/).hash = "021cf002a0c5c39c772369311b469cec";
+(node/*: any*/).hash = "425096f134d84c6ccbda89858902405f";
 
 require('relay-runtime').PreloadableQueryRegistry.set((node.params/*: any*/).id, node);
 
