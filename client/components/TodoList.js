@@ -6,8 +6,7 @@ import TodoTextInput from './TodoTextInput';
 
 import * as React from 'react';
 import {graphql, useFragment} from 'react-relay';
-
-const TodoList = () => {
+export default function TodoList({userRef}) {
   const user = useFragment(
     graphql`
       fragment TodoList_user on User {
@@ -34,7 +33,6 @@ const TodoList = () => {
     `,
     userRef,
   );
-
   const commitAddTodoMutation = useAddTodoMutation(user, user.todos.__id);
   const handleOnSave = (text) => commitAddTodoMutation(text);
 
@@ -55,7 +53,8 @@ const TodoList = () => {
         <TodoTextInput
           className="new-todo"
           onSave={handleOnSave}
-          palceholder="What needs to be done?"></TodoTextInput>
+          placeholder="What needs to be done?"
+        />
       </header>
 
       <section className="main">
@@ -63,17 +62,24 @@ const TodoList = () => {
           checked={user.totalCount === user.completedCount}
           className="toggle-all"
           onChange={handleMarkAllChange}
-          type="checkbox"></input>
+          type="checkbox"
+        />
 
         <label htmlFor="toggle-all">Mark all as complete</label>
+
         <ul className="todo-list">
-            {user.todos.edges.map(({node}) => (
-                <Todo key={node.id}/>
-            ))}
+          {user.todos.edges.map(({node}) => (
+            <Todo
+              key={node.id}
+              todoRef={node}
+              userRef={user}
+              todoConnectionId={user.todos.__id}
+            />
+          ))}
         </ul>
       </section>
+
+      <TodoListFooter userRef={user} todoConnectionRef={user.todos} />
     </>
   );
 }
-
-export default TodoList;
