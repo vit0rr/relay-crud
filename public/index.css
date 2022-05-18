@@ -23,7 +23,7 @@ button {
 body {
   font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.4em;
-  background: #f5f5f5;
+  background: #112B3C;
   color: #4d4d4d;
   min-width: 230px;
   max-width: 550px;
@@ -42,7 +42,7 @@ body {
 }
 
 .todoapp {
-  background: #fff;
+  background: #205375;
   margin: 130px 0 40px 0;
   position: relative;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
@@ -51,7 +51,7 @@ body {
 .todoapp input::-webkit-input-placeholder {
   font-style: italic;
   font-weight: 300;
-  color: #e6e6e6;
+  color: #EFEFEF;
 }
 
 .todoapp input::-moz-placeholder {
@@ -73,7 +73,7 @@ body {
   font-size: 100px;
   font-weight: 100;
   text-align: center;
-  color: rgba(175, 47, 47, 0.15);
+  color: #F66B0E;
   -webkit-text-rendering: optimizeLegibility;
   -moz-text-rendering: optimizeLegibility;
   text-rendering: optimizeLegibility;
@@ -89,7 +89,7 @@ body {
   font-weight: inherit;
   line-height: 1.4em;
   border: 0;
-  color: inherit;
+  color: #EFEFEF;
   padding: 6px;
   border: 1px solid #999;
   box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
@@ -158,6 +158,7 @@ label[for='toggle-all'] {
 }
 
 .todo-list li.editing .edit {
+  background-color: #205375;
   display: block;
   width: 506px;
   padding: 12px 16px;
@@ -191,6 +192,7 @@ label[for='toggle-all'] {
 }
 
 .todo-list li label {
+  color: #EFEFEF;
   word-break: break-all;
   padding: 15px 60px 15px 15px;
   margin-left: 45px;
@@ -247,22 +249,12 @@ label[for='toggle-all'] {
   border-top: 1px solid #e6e6e6;
 }
 
-.footer:before {
-  content: '';
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 50px;
-  overflow: hidden;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6,
-    0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6,
-    0 17px 2px -6px rgba(0, 0, 0, 0.2);
-}
+
 
 .todo-count {
   float: left;
   text-align: left;
+  color: #EFEFEF;
 }
 
 .todo-count strong {
@@ -306,6 +298,7 @@ html .clear-completed:active {
   line-height: 20px;
   text-decoration: none;
   cursor: pointer;
+  color: #EFEFEF;
 }
 
 .clear-completed:hover {
@@ -315,7 +308,7 @@ html .clear-completed:active {
 .info {
   margin: 65px auto 0;
   color: #bfbfbf;
-  font-size: 10px;
+  font-size: 15px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   text-align: center;
 }
@@ -334,6 +327,13 @@ html .clear-completed:active {
   text-decoration: underline;
 }
 
+.about {
+  color: #EFEFEF;
+}
+
+.about a {
+  color: #F66B0E;
+}
 /*
 	Hack to remove background from Mobile Safari.
 	Can't use it globally since it destroys checkboxes in Firefox

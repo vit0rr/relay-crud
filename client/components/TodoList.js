@@ -1,3 +1,6 @@
+// @flow
+import type {TodoList_user$key} from 'relay/TodoList_user.graphql';
+
 import {useAddTodoMutation} from '../mutations/AddTodoMutation';
 import {useMarkAllTodosMutation} from '../mutations/MarkAllTodosMutation';
 import Todo from './Todo';
@@ -6,7 +9,12 @@ import TodoTextInput from './TodoTextInput';
 
 import * as React from 'react';
 import {graphql, useFragment} from 'react-relay';
-export default function TodoList({userRef}) {
+
+type Props = {|
+  userRef: TodoList_user$key,
+|};
+
+export default function TodoList({userRef}: Props): React.Node {
   const user = useFragment(
     graphql`
       fragment TodoList_user on User {
@@ -33,14 +41,15 @@ export default function TodoList({userRef}) {
     `,
     userRef,
   );
+
   const commitAddTodoMutation = useAddTodoMutation(user, user.todos.__id);
-  const handleOnSave = (text) => commitAddTodoMutation(text);
+  const handleOnSave = (text: string) => commitAddTodoMutation(text);
 
   const commitMarkAllTodosMutation = useMarkAllTodosMutation(
     user,
     user.todos.edges,
   );
-  const handleMarkAllChange = (e) => {
+  const handleMarkAllChange = (e: SyntheticEvent<HTMLInputElement>) => {
     const complete = e.currentTarget.checked;
     commitMarkAllTodosMutation(complete);
   };
@@ -48,7 +57,7 @@ export default function TodoList({userRef}) {
   return (
     <>
       <header className="header">
-        <h1>todos</h1>
+        <h1>ToDo</h1>
 
         <TodoTextInput
           className="new-todo"

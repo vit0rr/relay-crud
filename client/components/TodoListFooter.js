@@ -3,7 +3,10 @@ import {useRemoveCompletedTodosMutation} from '../mutations/RemoveCompletedTodos
 import * as React from 'react';
 import {graphql, useFragment} from 'react-relay';
 
-const TodoListFooter = (userRef, todoConnectionRef) => {
+export default function TodoListFooter({
+  userRef,
+  todoConnectionRef,
+}) {
   const user = useFragment(
     graphql`
       fragment TodoListFooter_user on User {
@@ -33,7 +36,7 @@ const TodoListFooter = (userRef, todoConnectionRef) => {
   return (
     <footer className="footer">
       <span className="todo-count">
-        <strong>{numRemainingTodos}</strong> item{' '}
+        <strong>{numRemainingTodos}</strong> item
         {numRemainingTodos === 1 ? '' : 's'} left
       </span>
 
@@ -47,5 +50,3 @@ const TodoListFooter = (userRef, todoConnectionRef) => {
     </footer>
   );
 }
-
-export default TodoListFooter;

@@ -1,3 +1,7 @@
+// @flow
+import type {Todo_todo$key} from '../../generated/relay/Todo_todo.graphql.js';
+import type {Todo_user$key} from 'relay/Todo_user.graphql';
+
 import {useChangeTodoStatusMutation} from '../mutations/ChangeTodoStatusMutation';
 import {useRenameTodoMutation} from '../mutations/RenameTodoMutation';
 import {useRemoveTodoMutation} from '../mutations/RemoveTodoMutation';
@@ -8,7 +12,19 @@ import {useState} from 'react';
 import {graphql, useFragment} from 'react-relay';
 import classnames from 'classnames';
 
-const Todo = ({userRef, todoRef, todoConnectionId}) => {
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+
+type Props = {|
+  todoConnectionId: string,
+  todoRef: Todo_todo$key,
+  userRef: Todo_user$key,
+|};
+
+export default function Todo({
+  userRef,
+  todoRef,
+  todoConnectionId,
+}: Props): React$Element<'li'> {
   const todo = useFragment(
     graphql`
       fragment Todo_todo on Todo {
@@ -35,17 +51,16 @@ const Todo = ({userRef, todoRef, todoConnectionId}) => {
     user,
     todo,
   );
-
-  const handleCompleteChange = (e) => {
+  const handleCompleteChange = (e: SyntheticEvent<HTMLInputElement>) => {
     const complete = e.currentTarget.checked;
     commitChangeTodoStatusMutation(complete);
   };
 
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
   const handleLabelDoubleClick = () => setIsEditing(true);
   const handleTextInputCancel = () => setIsEditing(false);
   const commitRenameTodoMutation = useRenameTodoMutation(todo);
-  const handleTextInputSave = (text) => {
+  const handleTextInputSave = (text: string) => {
     setIsEditing(false);
     commitRenameTodoMutation(text);
   };
@@ -58,28 +73,34 @@ const Todo = ({userRef, todoRef, todoConnectionId}) => {
   const handleRemoveTodo = () => {
     commitRemoveTodoMutation();
   };
-
   const handleTextInputDelete = () => {
     setIsEditing(false);
     handleRemoveTodo();
   };
 
   return (
-    <li className={classnames({completed: todo.complete, editing: isEditing})}>
+    <li
+      className={classnames({
+        completed: todo.complete,
+        editing: isEditing,
+      })}>
       <div className="view">
         <input
           checked={todo.complete}
           className="toggle"
           onChange={handleCompleteChange}
-          type="checkbox"></input>
+          type="checkbox"
+        />
+
         <label onDoubleClick={handleLabelDoubleClick}>{todo.text}</label>
-        <button className="destroy" onClick={handleRemoveTodo}></button>
+        <button className="destroy" onClick={handleRemoveTodo} />
       </div>
 
       {isEditing && (
         <TodoTextInput
           className="edit"
           commitOnBlur={true}
+          initialValue={todo.text}
           onCancel={handleTextInputCancel}
           onDelete={handleTextInputDelete}
           onSave={handleTextInputSave}
@@ -87,6 +108,4 @@ const Todo = ({userRef, todoRef, todoConnectionId}) => {
       )}
     </li>
   );
-};
-
-export default Todo;
+}

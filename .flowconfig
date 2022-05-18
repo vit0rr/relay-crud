@@ -10,7 +10,7 @@ types/
 
 [options]
 module.system.node.resolve_dirname=node_modules
-module.system.node.resolve_dirname=__generated__
+module.system.node.resolve_dirname=generated
 
 suppress_type=$FlowIssue
 suppress_type=$FlowFixMe

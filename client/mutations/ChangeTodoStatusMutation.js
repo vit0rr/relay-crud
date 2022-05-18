@@ -1,3 +1,7 @@
+// @flow
+import type {ChangeTodoStatusMutation_todo$key} from 'relay/ChangeTodoStatusMutation_todo.graphql';
+import type {ChangeTodoStatusMutation_user$key} from 'relay/ChangeTodoStatusMutation_user.graphql';
+
 import {useCallback} from 'react';
 import {graphql, useFragment, useMutation} from 'react-relay';
 
@@ -16,7 +20,10 @@ const mutation = graphql`
   }
 `;
 
-export function useChangeTodoStatusMutation(userRef, todoRef) {
+export function useChangeTodoStatusMutation(
+  userRef: ChangeTodoStatusMutation_user$key,
+  todoRef: ChangeTodoStatusMutation_todo$key,
+): (boolean) => void {
   const user = useFragment(
     graphql`
       fragment ChangeTodoStatusMutation_user on User {
@@ -38,7 +45,7 @@ export function useChangeTodoStatusMutation(userRef, todoRef) {
   const [commit] = useMutation(mutation);
 
   return useCallback(
-    (complete) => {
+    (complete: boolean) => {
       const payload = {
         id: todo.id,
         complete,

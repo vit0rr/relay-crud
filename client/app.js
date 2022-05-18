@@ -14,12 +14,18 @@ import {
   Network,
   RecordSource,
   Store,
+  type RequestParameters,
+  type Variables,
+  type GraphQLResponse,
 } from 'relay-runtime';
 
 import {ErrorBoundary} from 'react-error-boundary';
-import TodoAppEntryPoint from './entrypoint/TodoApp.entrypoint.js';
+import TodoAppEntryPoint from './entrypoints/TodoApp.entrypoint';
 
-async function fetchQuery(params, variables) {
+async function fetchQuery(
+  params: RequestParameters,
+  variables: Variables,
+): Promise<GraphQLResponse> {
   const response = await fetch('/graphql', {
     method: 'POST',
     headers: {
@@ -34,7 +40,7 @@ async function fetchQuery(params, variables) {
   return response.json();
 }
 
-const modernEnvironment = new Environment({
+const modernEnvironment: Environment = new Environment({
   network: Network.create(fetchQuery),
   store: new Store(new RecordSource()),
 });
