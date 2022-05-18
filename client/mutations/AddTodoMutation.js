@@ -1,3 +1,6 @@
+// @flow
+import type {AddTodoMutation_user$key} from 'relay/AddTodoMutation_user.graphql';
+
 import {useCallback} from 'react';
 import {graphql, useFragment, useMutation} from 'react-relay';
 
@@ -21,7 +24,10 @@ const mutation = graphql`
 
 let tempID = 0;
 
-export function useAddTodoMutation(userRef, todoConnectionId) {
+export function useAddTodoMutation(
+  userRef: AddTodoMutation_user$key,
+  todoConnectionId: string,
+): (string) => void {
   const user = useFragment(
     graphql`
       fragment AddTodoMutation_user on User {
@@ -32,33 +38,35 @@ export function useAddTodoMutation(userRef, todoConnectionId) {
     `,
     userRef,
   );
-
   const [commit] = useMutation(mutation);
 
-  return useCallback((text) => {
-    commit({
-      variables: {
-        input: {
-          text,
-          userId: user.userId,
+  return useCallback(
+    (text: string) => {
+      commit({
+        variables: {
+          input: {
+            text,
+            userId: user.userId,
+          },
+          connections: [todoConnectionId],
         },
-        connections: [todoConnectionId],
-      },
-      optimisticResponse: {
-        addTodo: {
-          todoEdge: {
-            node: {
-              id: 'client:newTodo' + tempID++,
-              text,
-              complete: false,
+        optimisticResponse: {
+          addTodo: {
+            todoEdge: {
+              node: {
+                id: 'client:newTodo:' + tempID++,
+                text,
+                complete: false,
+              },
+            },
+            user: {
+              id: user.id,
+              totalCount: user.totalCount + 1,
             },
           },
-          user: {
-            id: user.id,
-            totalCount: user.totalCount + 1,
-          },
         },
-      },
-    });
-  }, [commit, user, todoConnectionId]);
+      });
+    },
+    [commit, user, todoConnectionId],
+  );
 }

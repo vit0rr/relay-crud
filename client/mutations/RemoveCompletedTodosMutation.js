@@ -1,3 +1,7 @@
+// @flow
+import type {RemoveCompletedTodosMutation_user$key} from 'relay/RemoveCompletedTodosMutation_user.graphql';
+import type {RemoveCompletedTodosMutation_todoConnection$key} from 'relay/RemoveCompletedTodosMutation_todoConnection.graphql';
+
 import {useCallback} from 'react';
 import {graphql, useFragment, useMutation} from 'react-relay';
 
@@ -17,7 +21,10 @@ const mutation = graphql`
   }
 `;
 
-export function useRemoveCompletedTodosMutation(userRef, todoConnectionRef) {
+export function useRemoveCompletedTodosMutation(
+  userRef: RemoveCompletedTodosMutation_user$key,
+  todoConnectionRef: RemoveCompletedTodosMutation_todoConnection$key,
+): () => void {
   const user = useFragment(
     graphql`
       fragment RemoveCompletedTodosMutation_user on User {
