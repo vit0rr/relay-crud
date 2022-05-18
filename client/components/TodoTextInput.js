@@ -1,3 +1,4 @@
+// @flow
 import * as React from 'react';
 import {useEffect, useRef, useState} from 'react';
 
@@ -13,7 +14,7 @@ const TodoTextInput = ({
   onSave,
   placeholder,
 }) => {
-  const [text, setText] = useState(initialValue || '');
+  const [text, setText] = useState<string>(initialValue || '');
   const inputRef = useRef();
 
   useEffect(() => {
@@ -41,7 +42,8 @@ const TodoTextInput = ({
     }
   };
 
-  const handleChange = (e) => setText(e.currentTarget.value);
+  const handleChange = (e) =>
+    setText(e.currentTarget.value);
 
   const handleKeyDown = (e) => {
     if (onCancel && e.keyCode === ESC_KEY_CODE) {
@@ -59,7 +61,8 @@ const TodoTextInput = ({
       onKeyDown={handleKeyDown}
       placeholder={placeholder}
       ref={inputRef}
-      value={text}></input>
+      value={text}
+    />
   );
 };
 
