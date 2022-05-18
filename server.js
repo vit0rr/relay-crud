@@ -1,3 +1,4 @@
+// @flow
 import express from 'express';
 import {graphqlHTTP} from 'express-graphql';
 import {persistedQueries} from 'express-graphql-persisted-queries';
@@ -5,21 +6,12 @@ import fs from 'fs';
 import path from 'path';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
-import {schema} from './server/schema/index.js';
+import {schema} from './server/schema';
 
-// const express = require('express');
-// const {graphqlHTTP} = require('express-graphql');
-// const {persistedQueries} = require('express-graphql-persisted-queries');
-// const fs = require('fs');
-// const path = require('path');
-// const webpack = require('webpack');
-// const WebpackDevServer = require('webpack-dev-server');
-// const {schema} = require('./server/schema');
-
-const APP_PORT = 3000;
-const QUERY_MAP_FILE = path.resolve(
+const APP_PORT: number = 3000;
+const QUERY_MAP_FILE: string = path.resolve(
   __dirname,
-  '__generated__',
+  'generated',
   'relay',
   'queries.json',
 );
